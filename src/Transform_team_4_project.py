@@ -32,7 +32,7 @@ def transform_data(list_to_read_from, list_to_append_to):
         for i in range(len(order_list)):
             if is_number(order_list[i]):
                 order_list[i] = ':'
-        order_list = ''.join(order_list)
+        order_list = ' '.join(order_list)
         order_list = order_list.split(':')
         
         for i in range(len(order_list)):
@@ -42,9 +42,9 @@ def transform_data(list_to_read_from, list_to_append_to):
         transformed = {}
         transformed["timestamp"] = row[0]
         transformed["branch"] = row[1]
-        transformed["basket"] = [{"name": f, "price": b} for f, b in zip(products, prices)]
+        transformed["basket"] = [{"name": f.strip(), "price": format(float(b), '.2f')} for f, b in zip(products, prices)]
         transformed["payment type"] = row[3]
-        transformed["total"] = row[4]
+        transformed["total"] = format(float(row[4]), '.2f')
             
         list_to_append_to.append(transformed)
     
@@ -52,6 +52,6 @@ def transform_data(list_to_read_from, list_to_append_to):
 transform_data(extract.customers_list, clean_data)
 
 
-pprint.pprint(clean_data[:5])
+pprint.pprint(clean_data[8])
 
 
