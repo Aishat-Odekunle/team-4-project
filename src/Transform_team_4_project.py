@@ -39,10 +39,20 @@ def transform_data(list_to_read_from, list_to_append_to):
             if order_list[i] != '':
                 products.append(order_list[i])
                 
+        basket = [{"name": f.strip(), "price": float(b)} for f, b in zip(products, prices)]
+        new_basket = []
+
+        for d in basket:
+            if d not in new_basket:
+                new_basket.append(d)
+                
+        for d in new_basket:
+            d["amount"] = basket.count(d)
+            
         transformed = {}
         transformed["timestamp"] = row[0]
         transformed["branch"] = row[1]
-        transformed["basket"] = [{"name": f.strip(), "price": float(b)} for f, b in zip(products, prices)]
+        transformed["basket"] = new_basket
         transformed["payment type"] = row[3]
         transformed["total"] = float(row[4])
             
@@ -52,6 +62,6 @@ def transform_data(list_to_read_from, list_to_append_to):
 transform_data(extract.customers_list, clean_data)
 
 
-pprint.pprint(clean_data[:2])
+pprint.pprint(clean_data[2])
 
 
