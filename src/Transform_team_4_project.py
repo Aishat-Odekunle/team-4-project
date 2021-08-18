@@ -47,7 +47,7 @@ def transform_data(list_to_read_from, list_to_append_to):
                 new_basket.append(d)
                 
         for d in new_basket:
-            d["amount"] = basket.count(d)
+            d["quantity"] = basket.count(d)
             
         transformed = {}
         transformed["timestamp"] = row[0]
