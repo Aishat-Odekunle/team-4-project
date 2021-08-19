@@ -1,6 +1,5 @@
 from csv import reader
 
-
 customers_list = []
 
 def extract_csv_info(file_name, list_to_append_to):
@@ -12,4 +11,3 @@ def extract_csv_info(file_name, list_to_append_to):
 
 extract_csv_info('2021-02-23-isle-of-wight.csv', customers_list)
 
-    

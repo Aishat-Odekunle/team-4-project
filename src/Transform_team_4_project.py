@@ -1,5 +1,6 @@
 import Extract_team_4_project as extract
 import pprint
+import datetime
 
 clean_data = []
 
@@ -48,9 +49,13 @@ def transform_data(list_to_read_from, list_to_append_to):
                 
         for d in new_basket:
             d["quantity"] = basket.count(d)
-            
+        
+        dt = datetime.datetime.strptime(row[0], "%Y-%m-%d %H:%M:%S")    
+        day = datetime.datetime.strftime(dt, "%Y-%m-%d")
+        time = datetime.datetime.strftime(dt, "%H:%M:%S")
         transformed = {}
-        transformed["timestamp"] = row[0]
+        transformed["date"] = day
+        transformed["time"] = time
         transformed["branch"] = row[1]
         transformed["basket"] = new_basket
         transformed["payment type"] = row[3]
@@ -61,7 +66,6 @@ def transform_data(list_to_read_from, list_to_append_to):
     
 transform_data(extract.customers_list, clean_data)
 
-
-pprint.pprint(clean_data[2])
+pprint.pprint(clean_data[1])
 
 
