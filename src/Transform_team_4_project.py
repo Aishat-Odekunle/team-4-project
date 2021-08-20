@@ -66,6 +66,6 @@ def transform_data(list_to_read_from, list_to_append_to):
     
 transform_data(extract.customers_list, clean_data)
 
-pprint.pprint(clean_data[1])
+pprint.pprint(clean_data[0])
 
 
