@@ -40,7 +40,11 @@ def transform_data(list_to_read_from, list_to_append_to):
             if order_list[i] != '':
                 products.append(order_list[i])
                 
-        basket = [{"name": f.strip(), "price": float(b)} for f, b in zip(products, prices)]
+        basket = [{"name": f.strip(),
+                   "price": float(b)}
+                  for f, b in 
+                  zip(products, prices)]
+        
         new_basket = []
 
         for d in basket:
@@ -67,5 +71,4 @@ def transform_data(list_to_read_from, list_to_append_to):
 transform_data(extract.customers_list, clean_data)
 
 pprint.pprint(clean_data[0])
-
 
