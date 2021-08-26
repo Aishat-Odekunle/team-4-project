@@ -21,7 +21,7 @@ def create_table_purchase_table():
     password="password" )
     
     cur = con.cursor()
-    cur.execute('create table if not exists purchase_table (purchase_id SERIAL, purchase_date DATE NOT NULL, purchase_time TIME NOT NULL, purchase_total MONEY NOT NULL, branch_id INTEGER NOT NULL, payment_type VARCHAR(50) NOT NULL,PRIMARY KEY (purchase_id), FOREIGN KEY(branch_id) REFERENCES branch_table(branch_id))')
+    cur.execute('create table if not exists purchase_table (purchase_id SERIAL, purchase_date DATE NOT NULL, purchase_time TIME NOT NULL, purchase_total MONEY NOT NULL, branch_id INTEGER NOT NULL, payment_type VARCHAR(50) NOT NULL,PRIMARY KEY (purchase_id, purchase_date, purchase_time, branch_id), FOREIGN KEY(branch_id) REFERENCES branch_table(branch_id))')
     con.commit()
     cur.close()
     con.close()
@@ -60,7 +60,7 @@ def create_table_purchase_product_table():
     password="password")
     
     cur = con.cursor()
-    cur.execute('create table if not exists purchase_product_table (purchase_date DATE NOT NULL , purchase_time TIME NOT NULL, product_id INTEGER NOT NULL, amount INTEGER, FOREIGN KEY (product_id) REFERENCES products_table(product_id))')
+    cur.execute('create table if not exists purchase_product_table (purchase_date DATE NOT NULL , purchase_time TIME NOT NULL, product_id INTEGER NOT NULL, amount INTEGER, PRIMARY KEY (purchase_date, purchase_time, product_id), FOREIGN KEY (product_id) REFERENCES products_table(product_id))')
     con.commit()
     cur.close()
     con.close()
@@ -159,5 +159,4 @@ def get_product_id(product):
 
 insert_into_branch_table('Isle of Wight')
 insert_into_products_table('Large Hot Chocolate', 2.90)
-insert_into_products_table('Large Chai Latte', 2.40)
 insert_into_purchase_table('2021-02-23', '09:00:48', 8.40, get_location_id('Isle of Wight'), 'CASH')
