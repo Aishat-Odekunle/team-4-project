@@ -21,7 +21,7 @@ def create_table_purchase_table():
     password="password" )
     
     cur = con.cursor()
-    cur.execute('create table if not exists purchase_table (purchase_id SERIAL, purchase_date DATE NOT NULL, purchase_time TIME NOT NULL, purchase_total MONEY NOT NULL, branch_id INTEGER NOT NULL, payment_type VARCHAR(50) NOT NULL,PRIMARY KEY (purchase_id, purchase_date, purchase_time, branch_id), FOREIGN KEY(branch_id) REFERENCES branch_table(branch_id))')
+    cur.execute('create table if not exists purchase_table (purchase_id SERIAL, purchase_date DATE NOT NULL, purchase_time TIME UNIQUE NOT NULL, purchase_total MONEY NOT NULL, branch_id INTEGER NOT NULL, payment_type VARCHAR(50) NOT NULL,PRIMARY KEY (purchase_date, purchase_time, branch_id), FOREIGN KEY(branch_id) REFERENCES branch_table(branch_id))')
     con.commit()
     cur.close()
     con.close()
@@ -66,15 +66,15 @@ def create_table_purchase_product_table():
     con.close()
     
    
-try:    
-    create_database()
-except:
-    pass
+# try:    
+#     create_database()
+# except:
+#     pass
 
-create_table_branch_table()
-create_table_purchase_table()
-create_table_products_table()
-create_table_purchase_product_table()
+# create_table_branch_table()
+# create_table_purchase_table()
+# create_table_products_table()
+# create_table_purchase_product_table()
 
 
 def insert_into_branch_table(value):
@@ -116,9 +116,25 @@ def insert_into_purchase_table(date, time, total, branch, payment):
     database= "infinity_cafes",
     password="password")
     
-    command = "INSERT INTO purchase_table (purchase_date, purchase_time, purchase_total, branch_id, payment_type) VALUES (%s, %s, %s, %s, %s)"
+    command = "INSERT INTO purchase_table (purchase_date, purchase_time, purchase_total, branch_id, payment_type) VALUES (%s, %s, %s, %s, %s) on conflict ( purchase_date, purchase_time, branch_id) do nothing"
     
     val = (date, time, total, branch, payment,)
+    cur = con.cursor()
+    cur.execute(command, val)
+    con.commit()
+    cur.close()
+    con.close()
+    
+def insert_into_purchase_product_table(date, time, product_id, amount):
+    con = psycopg2.connect(
+    host="localhost",
+    user="root",
+    database= "infinity_cafes",
+    password="password")
+    
+    command = "INSERT INTO purchase_product_table (purchase_date, purchase_time, product_id, amount) VALUES (%s, %s, %s, %s) on conflict (purchase_date, purchase_time, product_id) do nothing"
+    
+    val = (date, time, product_id, amount,)
     cur = con.cursor()
     cur.execute(command, val)
     con.commit()
@@ -156,7 +172,3 @@ def get_product_id(product):
     cur.close()
     con.close()
     return record[0][0]
-
-insert_into_branch_table('Isle of Wight')
-insert_into_products_table('Large Hot Chocolate', 2.90)
-insert_into_purchase_table('2021-02-23', '09:00:48', 8.40, get_location_id('Isle of Wight'), 'CASH')
