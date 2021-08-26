@@ -1,0 +1,25 @@
+{
+  "name": "team-4-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Generation-De-x-1/team-4-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Generation-De-x-1/team-4-project/issues"
+  },
+  "homepage": "https://github.com/Generation-De-x-1/team-4-project#readme",
+  "dependencies": {
+    "serverless": "^2.56.0"
+  }
+}
