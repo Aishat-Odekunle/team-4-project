@@ -2,6 +2,9 @@ service: team-4-etl
 
 frameworkVersion: '2'
 
+custom:
+  enterprise:
+    collectLambdaLogs: false
 
 provider:
   iam:  
@@ -17,8 +20,15 @@ functions:
     handler: handler.hello
   team-4-etl:
     handler: src/team-4-etl/handler.start
+    timeout: 300
+    # events:
+    #   - s3:
+    #       bucket: gen-x1-team-4-data-in
+    #       event: s3:ObjectCreated:*
+    #       existing: true
+    #       rules:
+    #         - suffix: .csv
 
-custom:
-  enterprise:
-    collectLambdaLogs: false
+
+
 
