@@ -186,7 +186,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/team-4-etl/dev/1630070168742-2021-08-27T13:16:08.742Z/team-4-etl.zip"
+                "S3Key": "serverless/team-4-etl/dev/1630335029477-2021-08-30T14:50:29.477Z/team-4-etl.zip"
               },
               "Handler": "handler.hello",
               "Runtime": "python3.8",
@@ -211,7 +211,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/team-4-etl/dev/1630070168742-2021-08-27T13:16:08.742Z/team-4-etl.zip"
+                "S3Key": "serverless/team-4-etl/dev/1630335029477-2021-08-30T14:50:29.477Z/team-4-etl.zip"
               },
               "Handler": "src/team-4-etl/handler.start",
               "Runtime": "python3.8",
@@ -229,24 +229,24 @@
               "TeamDash4DashetlLogGroup"
             ]
           },
-          "HelloLambdaVersionTr14MNlfnkbQZN5lJ9jXb8yqKSQvjH83OeOiCbKejss": {
+          "HelloLambdaVersionmO9sRbmGpnpmqU0REwkuFGQTqShAbUY5ZzAVkqDEdPo": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "HelloLambdaFunction"
               },
-              "CodeSha256": "kc56jYlP+kHSPxR5HeWDYJAIRxFbCF0EJlAx52g0Eno="
+              "CodeSha256": "qR9ntCvTDPrAngMSQwIemz/MXFQ8ViPBro0aCZtExWw="
             }
           },
-          "TeamDash4DashetlLambdaVersionAeeuDtayBXQgmBvqJQrF4nFr0S8yJmGfPzk3UWhA": {
+          "TeamDash4DashetlLambdaVersionwWWB3UgO4M3gC9j2jUng7awyHTplA0OI1EoAs46U5Y": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "TeamDash4DashetlLambdaFunction"
               },
-              "CodeSha256": "kc56jYlP+kHSPxR5HeWDYJAIRxFbCF0EJlAx52g0Eno="
+              "CodeSha256": "qR9ntCvTDPrAngMSQwIemz/MXFQ8ViPBro0aCZtExWw="
             }
           }
         },
@@ -262,7 +262,7 @@
           "HelloLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "HelloLambdaVersionTr14MNlfnkbQZN5lJ9jXb8yqKSQvjH83OeOiCbKejss"
+              "Ref": "HelloLambdaVersionmO9sRbmGpnpmqU0REwkuFGQTqShAbUY5ZzAVkqDEdPo"
             },
             "Export": {
               "Name": "sls-team-4-etl-dev-HelloLambdaFunctionQualifiedArn"
@@ -271,7 +271,7 @@
           "TeamDash4DashetlLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "TeamDash4DashetlLambdaVersionAeeuDtayBXQgmBvqJQrF4nFr0S8yJmGfPzk3UWhA"
+              "Ref": "TeamDash4DashetlLambdaVersionwWWB3UgO4M3gC9j2jUng7awyHTplA0OI1EoAs46U5Y"
             },
             "Export": {
               "Name": "sls-team-4-etl-dev-TeamDash4DashetlLambdaFunctionQualifiedArn"
@@ -379,7 +379,7 @@
         "timeout": 6,
         "runtime": "python3.8",
         "vpc": {},
-        "versionLogicalId": "HelloLambdaVersionTr14MNlfnkbQZN5lJ9jXb8yqKSQvjH83OeOiCbKejss"
+        "versionLogicalId": "HelloLambdaVersionmO9sRbmGpnpmqU0REwkuFGQTqShAbUY5ZzAVkqDEdPo"
       },
       "team-4-etl": {
         "handler": "src/team-4-etl/handler.start",
@@ -390,7 +390,7 @@
         "memory": 1024,
         "runtime": "python3.8",
         "vpc": {},
-        "versionLogicalId": "TeamDash4DashetlLambdaVersionAeeuDtayBXQgmBvqJQrF4nFr0S8yJmGfPzk3UWhA"
+        "versionLogicalId": "TeamDash4DashetlLambdaVersionwWWB3UgO4M3gC9j2jUng7awyHTplA0OI1EoAs46U5Y"
       }
     },
     "configValidationMode": "warn",
@@ -415,7 +415,7 @@
     "artifact": "C:\\Users\\Bayo's Computer\\Desktop\\WebsiteFiles\\d_e\\team-4-project\\.serverless\\team-4-etl.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/team-4-etl/dev/1630070168742-2021-08-27T13:16:08.742Z",
+    "artifactDirectoryName": "serverless/team-4-etl/dev/1630335029477-2021-08-30T14:50:29.477Z",
     "artifact": "team-4-etl.zip"
   }
 }
