@@ -186,7 +186,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/team-4-etl/dev/1630489074151-2021-09-01T09:37:54.151Z/team-4-etl.zip"
+                "S3Key": "serverless/team-4-etl/dev/1630500235786-2021-09-01T12:43:55.786Z/team-4-etl.zip"
               },
               "Handler": "handler.hello",
               "Runtime": "python3.8",
@@ -211,7 +211,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/team-4-etl/dev/1630489074151-2021-09-01T09:37:54.151Z/team-4-etl.zip"
+                "S3Key": "serverless/team-4-etl/dev/1630500235786-2021-09-01T12:43:55.786Z/team-4-etl.zip"
               },
               "Handler": "src/team-4-etl/handler.start",
               "Runtime": "python3.8",
@@ -229,25 +229,166 @@
               "TeamDash4DashetlLogGroup"
             ]
           },
-          "HelloLambdaVersionykWxtGTpnF5nM81w4ek8fFkPfxIaUSVmJGmx1YFHKc": {
+          "HelloLambdaVersionjJ1b4a8ZKKXQtgoEz5CVJXCtZ5IKOd9BrWQF1KhtaGk": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "HelloLambdaFunction"
               },
-              "CodeSha256": "HXpw8cebUaPJiBjRYMCigUci0XwHTE4bugMDlJYJtSg="
+              "CodeSha256": "yFYNPXHc1s/NGx/NonWyEU2R+hGk2mo0nELPgOuMgcw="
             }
           },
-          "TeamDash4DashetlLambdaVersionaRKMs993dLM0NMrmXKUXSuVQolsx0oPKVkNA6vEcI": {
+          "TeamDash4DashetlLambdaVersionOVCIearw9owlQHyZEJ9XFir5azdUTjOwOKb4YR67p4": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "TeamDash4DashetlLambdaFunction"
               },
-              "CodeSha256": "HXpw8cebUaPJiBjRYMCigUci0XwHTE4bugMDlJYJtSg="
+              "CodeSha256": "yFYNPXHc1s/NGx/NonWyEU2R+hGk2mo0nELPgOuMgcw="
             }
+          },
+          "TeamDash4DashetlCustomS31": {
+            "Type": "Custom::S3",
+            "Version": 1,
+            "DependsOn": [
+              "TeamDash4DashetlLambdaFunction",
+              "CustomDashresourceDashexistingDashs3LambdaFunction"
+            ],
+            "Properties": {
+              "ServiceToken": {
+                "Fn::GetAtt": [
+                  "CustomDashresourceDashexistingDashs3LambdaFunction",
+                  "Arn"
+                ]
+              },
+              "FunctionName": "team-4-etl-dev-team-4-etl",
+              "BucketName": "gen-x1-team-4-data-in",
+              "BucketConfigs": [
+                {
+                  "Event": "s3:ObjectCreated:*",
+                  "Rules": [
+                    {
+                      "Suffix": ".csv"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "IamRoleCustomResourcesLambdaExecution": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+              "AssumeRolePolicyDocument": {
+                "Version": "2012-10-17",
+                "Statement": [
+                  {
+                    "Effect": "Allow",
+                    "Principal": {
+                      "Service": [
+                        "lambda.amazonaws.com"
+                      ]
+                    },
+                    "Action": "sts:AssumeRole"
+                  }
+                ]
+              },
+              "Policies": [
+                {
+                  "PolicyName": {
+                    "Fn::Join": [
+                      "-",
+                      [
+                        "dev",
+                        "team-4-etl",
+                        "custom-resources-lambda"
+                      ]
+                    ]
+                  },
+                  "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                      {
+                        "Effect": "Allow",
+                        "Resource": {
+                          "Fn::Join": [
+                            ":",
+                            [
+                              "arn",
+                              {
+                                "Ref": "AWS::Partition"
+                              },
+                              "s3",
+                              "",
+                              "",
+                              "gen-x1-team-4-data-in"
+                            ]
+                          ]
+                        },
+                        "Action": [
+                          "s3:PutBucketNotification",
+                          "s3:GetBucketNotification"
+                        ]
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Resource": {
+                          "Fn::Join": [
+                            ":",
+                            [
+                              "arn",
+                              {
+                                "Ref": "AWS::Partition"
+                              },
+                              "lambda",
+                              {
+                                "Ref": "AWS::Region"
+                              },
+                              {
+                                "Ref": "AWS::AccountId"
+                              },
+                              "function",
+                              "*"
+                            ]
+                          ]
+                        },
+                        "Action": [
+                          "lambda:AddPermission",
+                          "lambda:RemovePermission"
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "PermissionsBoundary": "arn:aws:iam::883232869702:policy/ScopePermissions"
+            }
+          },
+          "CustomDashresourceDashexistingDashs3LambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/team-4-etl/dev/1630500235786-2021-09-01T12:43:55.786Z/custom-resources.zip"
+              },
+              "FunctionName": "team-4-etl-dev-custom-resource-existing-s3",
+              "Handler": "s3/handler.handler",
+              "MemorySize": 1024,
+              "Runtime": "nodejs12.x",
+              "Timeout": 180,
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleCustomResourcesLambdaExecution",
+                  "Arn"
+                ]
+              }
+            },
+            "DependsOn": [
+              "IamRoleCustomResourcesLambdaExecution"
+            ]
           }
         },
         "Outputs": {
@@ -262,7 +403,7 @@
           "HelloLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "HelloLambdaVersionykWxtGTpnF5nM81w4ek8fFkPfxIaUSVmJGmx1YFHKc"
+              "Ref": "HelloLambdaVersionjJ1b4a8ZKKXQtgoEz5CVJXCtZ5IKOd9BrWQF1KhtaGk"
             },
             "Export": {
               "Name": "sls-team-4-etl-dev-HelloLambdaFunctionQualifiedArn"
@@ -271,7 +412,7 @@
           "TeamDash4DashetlLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "TeamDash4DashetlLambdaVersionaRKMs993dLM0NMrmXKUXSuVQolsx0oPKVkNA6vEcI"
+              "Ref": "TeamDash4DashetlLambdaVersionOVCIearw9owlQHyZEJ9XFir5azdUTjOwOKb4YR67p4"
             },
             "Export": {
               "Name": "sls-team-4-etl-dev-TeamDash4DashetlLambdaFunctionQualifiedArn"
@@ -379,19 +520,57 @@
         "timeout": 6,
         "runtime": "python3.8",
         "vpc": {},
-        "versionLogicalId": "HelloLambdaVersionykWxtGTpnF5nM81w4ek8fFkPfxIaUSVmJGmx1YFHKc"
+        "versionLogicalId": "HelloLambdaVersionjJ1b4a8ZKKXQtgoEz5CVJXCtZ5IKOd9BrWQF1KhtaGk"
       },
       "team-4-etl": {
         "handler": "src/team-4-etl/handler.start",
         "timeout": 300,
-        "events": [],
+        "events": [
+          {
+            "s3": {
+              "bucket": "gen-x1-team-4-data-in",
+              "event": "s3:ObjectCreated:*",
+              "existing": true,
+              "rules": [
+                {
+                  "suffix": ".csv"
+                }
+              ]
+            }
+          }
+        ],
         "name": "team-4-etl-dev-team-4-etl",
         "package": {},
         "memory": 1024,
         "runtime": "python3.8",
         "vpc": {},
-        "versionLogicalId": "TeamDash4DashetlLambdaVersionaRKMs993dLM0NMrmXKUXSuVQolsx0oPKVkNA6vEcI"
+        "versionLogicalId": "TeamDash4DashetlLambdaVersionOVCIearw9owlQHyZEJ9XFir5azdUTjOwOKb4YR67p4"
       }
+    },
+    "resources": {
+      "Resources": {
+        "IamRoleCustomResourcesLambdaExecution": {
+          "Type": "AWS::IAM::Role",
+          "Properties": {
+            "PermissionsBoundary": "arn:aws:iam::883232869702:policy/ScopePermissions",
+            "AssumeRolePolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Principal": {
+                    "Service": [
+                      "lambda.amazonaws.com"
+                    ]
+                  },
+                  "Action": "sts:AssumeRole"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "Outputs": {}
     },
     "configValidationMode": "warn",
     "serviceFilename": "serverless.yml",
@@ -400,6 +579,9 @@
         "$ref": "$[\"service\"][\"serviceObject\"]"
       },
       "frameworkVersion": "2",
+      "resources": {
+        "$ref": "$[\"service\"][\"resources\"]"
+      },
       "custom": {
         "$ref": "$[\"service\"][\"custom\"]"
       },
@@ -415,7 +597,7 @@
     "artifact": "C:\\Users\\Bayo's Computer\\Desktop\\WebsiteFiles\\d_e\\team-4-project\\.serverless\\team-4-etl.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/team-4-etl/dev/1630489074151-2021-09-01T09:37:54.151Z",
+    "artifactDirectoryName": "serverless/team-4-etl/dev/1630500235786-2021-09-01T12:43:55.786Z",
     "artifact": "team-4-etl.zip"
   }
 }

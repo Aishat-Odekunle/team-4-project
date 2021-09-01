@@ -2,6 +2,22 @@ service: team-4-etl
 
 frameworkVersion: '2'
 
+resources:
+  Resources:
+    IamRoleCustomResourcesLambdaExecution:
+      Type: AWS::IAM::Role
+      Properties:
+        PermissionsBoundary: arn:aws:iam::883232869702:policy/ScopePermissions
+        AssumeRolePolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+                - Effect: Allow
+                  Principal:
+                    Service:
+                      - lambda.amazonaws.com
+                  Action: sts:AssumeRole
+
+
 custom:
   enterprise:
     collectLambdaLogs: false
@@ -21,13 +37,13 @@ functions:
   team-4-etl:
     handler: src/team-4-etl/handler.start
     timeout: 300
-    # events:
-    #   - s3:
-    #       bucket: gen-x1-team-4-data-in
-    #       event: s3:ObjectCreated:*
-    #       existing: true
-    #       rules:
-    #         - suffix: .csv
+    events:
+      - s3:
+          bucket: gen-x1-team-4-data-in
+          event: s3:ObjectCreated:*
+          existing: true
+          rules:
+            - suffix: .csv
 
 
 

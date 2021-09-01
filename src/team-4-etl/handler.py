@@ -20,6 +20,15 @@ def start(event, context):
     s3_client = boto3.client('s3')
     s3_object = s3_client.get_object(Bucket=bucket, Key=key)
     data = s3_object['Body'].read().decode('utf-8')
-    split_data = data.splitlines()
-    return split_data
+    data_as_list = data.splitlines()
+    
+    s = boto3.resource('s3')
+    our_buck = s.Bucket(bucket)
+    bucket_contents = []
+    for file in our_buck.objects.all():
+        bucket_contents.append(file.key)
+    return bucket_contents
+
+    # return data_as_list
+    
 
