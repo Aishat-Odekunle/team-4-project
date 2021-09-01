@@ -4,6 +4,19 @@ import datetime
 
 clean_data = []
 
+def format_date(var):
+    ls = ['/', '.']
+    var = var.replace(':', '-')
+    new_var = ''
+    if not any(elem in var for elem in ls):
+        new_var = var
+    else:
+        for i in var:
+            if i in ls:
+                new_var = var.replace(i, '-')
+                
+    return new_var
+
 def is_number(string):
     try:
         float(string)
@@ -54,7 +67,8 @@ def transform_data(list_to_read_from, list_to_append_to):
         for d in new_basket:
             d["quantity"] = basket.count(d)
         
-        dt = datetime.datetime.strptime(row[0], "%Y-%m-%d %H:%M:%S")    
+        the_date = format_date(row[0])
+        dt = datetime.datetime.strptime(the_date, "%Y-%m-%d %H-%M-%S")   
         day = datetime.datetime.strftime(dt, "%Y-%m-%d")
         time = datetime.datetime.strftime(dt, "%H:%M:%S")
         transformed = {}
@@ -68,7 +82,7 @@ def transform_data(list_to_read_from, list_to_append_to):
         list_to_append_to.append(transformed)
     
     
-# transform_data(extract.customers_list, clean_data)
+transform_data(extract.customers_list, clean_data)
 
-# pprint.pprint(clean_data[0])
+pprint.pprint(clean_data[0])
 
