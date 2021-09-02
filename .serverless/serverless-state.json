@@ -186,7 +186,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/team-4-etl/dev/1630586595532-2021-09-02T12:43:15.532Z/team-4-etl.zip"
+                "S3Key": "serverless/team-4-etl/dev/1630590588253-2021-09-02T13:49:48.253Z/team-4-etl.zip"
               },
               "Handler": "handler.hello",
               "Runtime": "python3.8",
@@ -211,7 +211,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/team-4-etl/dev/1630586595532-2021-09-02T12:43:15.532Z/team-4-etl.zip"
+                "S3Key": "serverless/team-4-etl/dev/1630590588253-2021-09-02T13:49:48.253Z/team-4-etl.zip"
               },
               "Handler": "src/team-4-etl/handler.start",
               "Runtime": "python3.8",
@@ -229,24 +229,24 @@
               "TeamDash4DashetlLogGroup"
             ]
           },
-          "HelloLambdaVersionMIy6Qwku2VsmpvCrAholGwoKmbfkgguFCfAgxbEZCj8": {
+          "HelloLambdaVersionLRdFWTMzyPF37VYjb02GdStOc29fiNEjRF3YMSskg": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "HelloLambdaFunction"
               },
-              "CodeSha256": "CJ2IWri0nKqajQefOsBrXokz0zyolu3cQ6tfmJWbvSw="
+              "CodeSha256": "9n99iuSdztYoB+hisEkM+3cdy5UoT4z3owV61Cbw6qw="
             }
           },
-          "TeamDash4DashetlLambdaVersionssUmYZCt9be6AVHJn77J7g0wVjdeFtr84GfcifuY": {
+          "TeamDash4DashetlLambdaVersionH3C8MM0z6ogrtGgM5oWmTdHAZGeQfPCW0iCmcsTFLU": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "TeamDash4DashetlLambdaFunction"
               },
-              "CodeSha256": "CJ2IWri0nKqajQefOsBrXokz0zyolu3cQ6tfmJWbvSw="
+              "CodeSha256": "9n99iuSdztYoB+hisEkM+3cdy5UoT4z3owV61Cbw6qw="
             }
           },
           "TeamDash4DashetlCustomS31": {
@@ -372,7 +372,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/team-4-etl/dev/1630586595532-2021-09-02T12:43:15.532Z/custom-resources.zip"
+                "S3Key": "serverless/team-4-etl/dev/1630590588253-2021-09-02T13:49:48.253Z/custom-resources.zip"
               },
               "FunctionName": "team-4-etl-dev-custom-resource-existing-s3",
               "Handler": "s3/handler.handler",
@@ -403,7 +403,7 @@
           "HelloLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "HelloLambdaVersionMIy6Qwku2VsmpvCrAholGwoKmbfkgguFCfAgxbEZCj8"
+              "Ref": "HelloLambdaVersionLRdFWTMzyPF37VYjb02GdStOc29fiNEjRF3YMSskg"
             },
             "Export": {
               "Name": "sls-team-4-etl-dev-HelloLambdaFunctionQualifiedArn"
@@ -412,7 +412,7 @@
           "TeamDash4DashetlLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "TeamDash4DashetlLambdaVersionssUmYZCt9be6AVHJn77J7g0wVjdeFtr84GfcifuY"
+              "Ref": "TeamDash4DashetlLambdaVersionH3C8MM0z6ogrtGgM5oWmTdHAZGeQfPCW0iCmcsTFLU"
             },
             "Export": {
               "Name": "sls-team-4-etl-dev-TeamDash4DashetlLambdaFunctionQualifiedArn"
@@ -520,7 +520,7 @@
         "timeout": 6,
         "runtime": "python3.8",
         "vpc": {},
-        "versionLogicalId": "HelloLambdaVersionMIy6Qwku2VsmpvCrAholGwoKmbfkgguFCfAgxbEZCj8"
+        "versionLogicalId": "HelloLambdaVersionLRdFWTMzyPF37VYjb02GdStOc29fiNEjRF3YMSskg"
       },
       "team-4-etl": {
         "handler": "src/team-4-etl/handler.start",
@@ -544,7 +544,7 @@
         "memory": 1024,
         "runtime": "python3.8",
         "vpc": {},
-        "versionLogicalId": "TeamDash4DashetlLambdaVersionssUmYZCt9be6AVHJn77J7g0wVjdeFtr84GfcifuY"
+        "versionLogicalId": "TeamDash4DashetlLambdaVersionH3C8MM0z6ogrtGgM5oWmTdHAZGeQfPCW0iCmcsTFLU"
       }
     },
     "resources": {
@@ -597,7 +597,7 @@
     "artifact": "C:\\Users\\Bayo's Computer\\Desktop\\WebsiteFiles\\d_e\\team-4-project\\.serverless\\team-4-etl.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/team-4-etl/dev/1630586595532-2021-09-02T12:43:15.532Z",
+    "artifactDirectoryName": "serverless/team-4-etl/dev/1630590588253-2021-09-02T13:49:48.253Z",
     "artifact": "team-4-etl.zip"
   }
 }

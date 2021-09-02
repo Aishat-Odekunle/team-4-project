@@ -1,6 +1,7 @@
-import Extract_team_4_project as extract
-import Transform_team_4_project as transform
-import db_script as database
+import src.Extract_team_4_project as extract
+import src.Transform_team_4_project as transform
+import src.db_script as database
+import psycopg2
 
 def etl(filename):
     customers_list = []
@@ -27,7 +28,7 @@ def etl(filename):
             database.insert_into_products_table(item["name"], item["price"])
             database.insert_into_purchase_product_table(row["date"], row["time"], database.get_product_id(item["name"]), item["quantity"])
         
-    print('db function fin')
+    print('etl function fin')
         
 
-etl('2021-02-23-isle-of-wight.csv')
+# etl('2021-02-23-isle-of-wight.csv')
