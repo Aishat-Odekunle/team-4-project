@@ -68,7 +68,20 @@ def transform_data(list_to_read_from, list_to_append_to):
             d["quantity"] = basket.count(d)
         
         the_date = format_date(row[0])
-        dt = datetime.datetime.strptime(the_date, "%Y-%m-%d %H-%M-%S")   
+        
+        try:
+            dt = datetime.datetime.strptime(the_date, "%d-%m-%Y %H-%M-%S")
+        except:
+            pass
+        try:
+            dt = datetime.datetime.strptime(the_date, "%Y-%m-%d %H-%M-%S")
+        except:
+            pass
+        try:
+            dt = datetime.datetime.strptime(the_date, "%m-%Y-%d %H-%M-%S")
+        except:
+            pass
+        
         day = datetime.datetime.strftime(dt, "%Y-%m-%d")
         time = datetime.datetime.strftime(dt, "%H:%M:%S")
         transformed = {}
@@ -84,5 +97,5 @@ def transform_data(list_to_read_from, list_to_append_to):
     
 transform_data(extract.customers_list, clean_data)
 
-pprint.pprint(clean_data[0])
+# pprint.pprint(clean_data[1])
 

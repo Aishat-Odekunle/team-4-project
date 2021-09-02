@@ -26,7 +26,7 @@ def etl(filename):
         for item in row["basket"]:
             database.insert_into_products_table(item["name"], item["price"])
             database.insert_into_purchase_product_table(row["date"], row["time"], database.get_product_id(item["name"]), item["quantity"])
-            
+        
     print('db function fin')
         
 

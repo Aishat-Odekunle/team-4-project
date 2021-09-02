@@ -1,5 +1,4 @@
 import json
-from re import split
 import boto3
 from urllib.parse import unquote_plus
 import uuid
@@ -22,13 +21,14 @@ def start(event, context):
     data = s3_object['Body'].read().decode('utf-8')
     data_as_list = data.splitlines()
     
-    s = boto3.resource('s3')
-    our_buck = s.Bucket(bucket)
-    bucket_contents = []
-    for file in our_buck.objects.all():
-        bucket_contents.append(file.key)
-    return bucket_contents
-
-    # return data_as_list
+    return data_as_list
     
+    # s = boto3.resource('s3')
+    # our_buck = s.Bucket(bucket)
+    # bucket_contents = []
+    # for file in our_buck.objects.all():
+    #     bucket_contents.append(file.key)
+    # return bucket_contents
 
+
+    
