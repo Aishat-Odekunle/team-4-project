@@ -1,6 +1,6 @@
 import boto3
 import src.app as run_etl
-import psycopg2
+
 
 def start(event, context):
     key = event['Records'][0]['s3']['object']['key']

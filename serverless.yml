@@ -1,6 +1,17 @@
 service: team-4-etl
 
+package:
+  individually: false
+  include: 
+    - src/**
+  exclude:
+    - "*"
+    - "*/**"
+    
 frameworkVersion: '2'
+
+plugins:
+  - serverless-python-requirements
 
 resources:
   Resources:
@@ -21,6 +32,10 @@ resources:
 custom:
   enterprise:
     collectLambdaLogs: false
+  pythonRequirements:
+    slim: true
+    layer: true
+  
 
 provider:
   iam:  
@@ -37,6 +52,8 @@ functions:
   team-4-etl:
     handler: src/team-4-etl/handler.start
     timeout: 300
+    layers:
+      - !Ref PythonRequirementsLambdaLayer
     events:
       - s3:
           bucket: gen-x1-team-4-data-in

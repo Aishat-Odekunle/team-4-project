@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Generation-De-x-1/team-4-project#readme",
   "dependencies": {
-    "serverless": "^2.56.0"
+    "serverless": "^2.56.0",
+    "serverless-python-requirements": "^5.1.1"
   }
 }

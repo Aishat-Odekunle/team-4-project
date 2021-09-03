@@ -1,5 +1,4 @@
 # import Extract_team_4_project as extract
-import pprint
 import datetime
 
 clean_data = []

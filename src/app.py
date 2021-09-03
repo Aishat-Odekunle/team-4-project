@@ -1,7 +1,7 @@
 import src.Extract_team_4_project as extract
 import src.Transform_team_4_project as transform
 import src.db_script as database
-import psycopg2
+
 
 def etl(filename):
     customers_list = []
