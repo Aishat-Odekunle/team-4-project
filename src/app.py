@@ -10,24 +10,27 @@ def etl(filename):
     clean_data = []
     transform.transform_data(customers_list, clean_data)
     
-    try:    
-        database.create_database()
-    except:
-        pass
+    # try:    
+    #     database.create_database()
+    # except:
+    #     pass
+    
+    connection = database.create_connection()
 
-    database.create_table_branch_table()
-    database.create_table_purchase_table()
-    database.create_table_products_table()
-    database.create_table_purchase_product_table()
+    database.create_table_branch_table(connection)
+    database.create_table_purchase_table(connection)
+    database.create_table_products_table(connection)
+    database.create_table_purchase_product_table(connection)
     
     for row in clean_data:
-        database.insert_into_branch_table(row["branch"])
-        database.insert_into_purchase_table(row["date"], row["time"], row["total"], database.get_location_id(row["branch"]), row["payment type"])
+        database.insert_into_branch_table(connection, row["branch"])
+        database.insert_into_purchase_table(connection, row["date"], row["time"], row["total"], database.get_location_id(row["branch"]), row["payment type"])
         
         for item in row["basket"]:
-            database.insert_into_products_table(item["name"], item["price"])
-            database.insert_into_purchase_product_table(row["date"], row["time"], database.get_product_id(item["name"]), item["quantity"])
-        
+            database.insert_into_products_table(connection, item["name"], item["price"])
+            database.insert_into_purchase_product_table(connection, row["date"], row["time"], database.get_product_id(item["name"]), item["quantity"])
+    
+    connection.close()
     print('etl function fin')
         
 

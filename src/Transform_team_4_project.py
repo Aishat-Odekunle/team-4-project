@@ -1,5 +1,5 @@
-# import Extract_team_4_project as extract
 import datetime
+# import pprint
 
 clean_data = []
 
@@ -68,33 +68,43 @@ def transform_data(list_to_read_from, list_to_append_to):
         
         the_date = format_date(row[0])
         
+        dt = ''
+        
+        date_transform = False
+        
         try:
             dt = datetime.datetime.strptime(the_date, "%d-%m-%Y %H-%M-%S")
-        except:
-            pass
-        try:
-            dt = datetime.datetime.strptime(the_date, "%Y-%m-%d %H-%M-%S")
-        except:
-            pass
-        try:
-            dt = datetime.datetime.strptime(the_date, "%m-%Y-%d %H-%M-%S")
+            date_transform = True
         except:
             pass
         
-        day = datetime.datetime.strftime(dt, "%Y-%m-%d")
-        time = datetime.datetime.strftime(dt, "%H:%M:%S")
-        transformed = {}
-        transformed["date"] = day
-        transformed["time"] = time
-        transformed["branch"] = row[1]
-        transformed["basket"] = new_basket
-        transformed["payment type"] = row[3]
-        transformed["total"] = float(row[4])
-            
-        list_to_append_to.append(transformed)
+        try:
+            dt = datetime.datetime.strptime(the_date, "%Y-%m-%d %H-%M-%S")
+            date_transform = True
+        except:
+            pass
+        
+        try:
+            dt = datetime.datetime.strptime(the_date, "%m-%Y-%d %H-%M-%S")
+            date_transform = True
+        except:
+            pass
+
+        if date_transform == True:
+            day = datetime.datetime.strftime(dt, "%Y-%m-%d")
+            time = datetime.datetime.strftime(dt, "%H:%M:%S")
+            transformed = {}
+            transformed["date"] = day
+            transformed["time"] = time
+            transformed["branch"] = row[1]
+            transformed["basket"] = new_basket
+            transformed["payment type"] = row[3]
+            transformed["total"] = float(row[4])
+                
+            list_to_append_to.append(transformed)
     
     
 # transform_data(extract.customers_list, clean_data)
 
-# pprint.pprint(clean_data[1])
+# pprint.pprint(clean_data[0])
 

@@ -7,11 +7,51 @@ package:
   exclude:
     - "*"
     - "*/**"
-    
+
 frameworkVersion: '2'
 
-plugins:
-  - serverless-python-requirements
+# plugins:
+#   - serverless-python-requirements
+
+
+custom:
+  enterprise:
+    collectLambdaLogs: false
+  # pythonRequirements:
+  #   slim: true
+  #   layer: true
+  
+
+provider:
+  iam:  
+    role: arn:aws:iam::883232869702:role/data-lambda-role
+  name: aws
+  runtime: python3.8
+  lambdaHashingVersion: 20201221
+  region: eu-west-1
+
+functions:
+  team-4-etl:
+    handler: src/handler.start
+    timeout: 300
+    layers:
+      # - !Ref PythonRequirementsLambdaLayer
+      - arn:aws:lambda:eu-west-1:883232869702:layer:ELT-Lambda:2
+    events:
+      - s3:
+          bucket: gen-x1-team-4-data-in
+          event: s3:ObjectCreated:*
+          existing: true
+          rules:
+            - suffix: .csv
+    vpc:
+        securityGroupIds:
+          - sg-0801321c71a7a6e23
+        subnetIds:
+          - subnet-004b25850753cd6e2
+          - subnet-0ee5935030b8a9e95
+          - subnet-012a9e4b86ac75aa9
+
 
 resources:
   Resources:
@@ -27,41 +67,4 @@ resources:
                     Service:
                       - lambda.amazonaws.com
                   Action: sts:AssumeRole
-
-
-custom:
-  enterprise:
-    collectLambdaLogs: false
-  pythonRequirements:
-    slim: true
-    layer: true
-  
-
-provider:
-  iam:  
-    role:
-      permissionsBoundary: arn:aws:iam::883232869702:policy/ScopePermissions
-  name: aws
-  runtime: python3.8
-  lambdaHashingVersion: 20201221
-  region: eu-west-1
-
-functions:
-  hello:
-    handler: handler.hello
-  team-4-etl:
-    handler: src/team-4-etl/handler.start
-    timeout: 300
-    layers:
-      - !Ref PythonRequirementsLambdaLayer
-    events:
-      - s3:
-          bucket: gen-x1-team-4-data-in
-          event: s3:ObjectCreated:*
-          existing: true
-          rules:
-            - suffix: .csv
-
-
-
 

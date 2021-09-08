@@ -1,6 +1,6 @@
 from csv import reader
 
-customers_list = []
+# customers_list = []
 
 def extract_csv_info(file_name, list_to_append_to):
     with open(file_name) as the_file:
