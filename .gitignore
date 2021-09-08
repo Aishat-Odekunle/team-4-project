@@ -141,3 +141,6 @@ requests/
 urllib3-1.26.6.dist-info/
 urllib3/
 .serverless/
+serverless.yml
+package.jsonpackage-lock.json
+
