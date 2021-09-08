@@ -43,9 +43,9 @@ def create_table_purchase_table(con):
     
     cur = con.cursor()
     cur.execute('''create table if not exists purchase_table 
-                (purchase_id SERIAL, purchase_date DATE NOT NULL,
+                (purchase_id INT IDENTITY(1,1), purchase_date DATE NOT NULL,
                 purchase_time TIME UNIQUE NOT NULL,
-                purchase_total MONEY NOT NULL,
+                purchase_total FLOAT NOT NULL,
                 branch_id INTEGER NOT NULL,
                 payment_type VARCHAR(50) NOT NULL,
                 PRIMARY KEY (purchase_date, purchase_time, branch_id),
@@ -58,7 +58,7 @@ def create_table_branch_table(con):
     
     cur = con.cursor()
     cur.execute('''create table if not exists branch_table 
-                (branch_id SERIAL,
+                (branch_id  INT IDENTITY(1,1),
                 branch_location TEXT UNIQUE NOT NULL,
                 PRIMARY KEY(branch_id))''')
     con.commit()
@@ -69,9 +69,9 @@ def create_table_products_table(con):
     
     cur = con.cursor()
     cur.execute('''create table if not exists products_table 
-                (product_id SERIAL, 
+                (product_id  INT IDENTITY(1,1), 
                 product_name VARCHAR (100) UNIQUE NOT NULL, 
-                product_price MONEY NOT NULL, 
+                product_price FLOAT NOT NULL, 
                 PRIMARY KEY(product_id))''')
     con.commit()
     cur.close()

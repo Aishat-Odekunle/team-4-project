@@ -10,18 +10,10 @@ package:
 
 frameworkVersion: '2'
 
-# plugins:
-#   - serverless-python-requirements
-
-
 custom:
   enterprise:
     collectLambdaLogs: false
-  # pythonRequirements:
-  #   slim: true
-  #   layer: true
   
-
 provider:
   iam:  
     role: arn:aws:iam::883232869702:role/data-lambda-role
