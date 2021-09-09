@@ -30,6 +30,7 @@ jobs:
     - name: Serverless AWS Authentication
       run: serverless config credentials --provider aws --key ${{ secrets.ACCESS_KEY_ID }} --secret ${{ secrets.SECRET_KEY }}
     - run: sls deploy
+    
 
 
 
