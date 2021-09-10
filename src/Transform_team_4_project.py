@@ -80,7 +80,8 @@ def transform_data(list_to_read_from, list_to_append_to):
         dt = ''
         
         date_transform = False
-        
+        # had to change the formatting to remove the seconds 
+        # as these new csv files have only hour and minute in time
         try:
             dt = datetime.datetime.strptime(the_date, "%d-%m-%Y %H-%M")
             date_transform = True
