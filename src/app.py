@@ -7,9 +7,12 @@ def etl(filename):
     customers_list = []
     extract.extract_csv_info(filename, customers_list)
     
+    print(len(customers_list), 'extracted data length')
+    
     clean_data = []
     transform.transform_data(customers_list, clean_data)
     
+    print(len(clean_data), 'transformed data length')
     # try:    
     #     database.create_database()
     # except:

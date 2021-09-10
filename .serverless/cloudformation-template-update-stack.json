@@ -84,7 +84,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/team-4-etl/dev/1631106802949-2021-09-08T13:13:22.949Z/team-4-etl.zip"
+          "S3Key": "serverless/team-4-etl/dev/1631271417667-2021-09-10T10:56:57.667Z/team-4-etl.zip"
         },
         "Handler": "src/handler.start",
         "Runtime": "python3.8",
@@ -110,14 +110,14 @@
         "TeamDash4DashetlLogGroup"
       ]
     },
-    "TeamDash4DashetlLambdaVersionT9lJM1GZcbz9xnAtbHv5EVgKdE0Wl2IByhs39xxbRY": {
+    "TeamDash4DashetlLambdaVersionfmJvaMqawkYoHKGOW8NVq6tv9A52cWCqz3oEajWGdg4": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "TeamDash4DashetlLambdaFunction"
         },
-        "CodeSha256": "tyr78+dqX1jtKkN/hnek5CLeSqaiCRJ+JM4YREzOfpA="
+        "CodeSha256": "3I+2v9AYtCbM7EO8LsfU0Gl8HITe9RR2KSx5buxufhg="
       }
     },
     "TeamDash4DashetlCustomS31": {
@@ -243,7 +243,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/team-4-etl/dev/1631106802949-2021-09-08T13:13:22.949Z/custom-resources.zip"
+          "S3Key": "serverless/team-4-etl/dev/1631271417667-2021-09-10T10:56:57.667Z/custom-resources.zip"
         },
         "FunctionName": "team-4-etl-dev-custom-resource-existing-s3",
         "Handler": "s3/handler.handler",
@@ -274,7 +274,7 @@
     "TeamDash4DashetlLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "TeamDash4DashetlLambdaVersionT9lJM1GZcbz9xnAtbHv5EVgKdE0Wl2IByhs39xxbRY"
+        "Ref": "TeamDash4DashetlLambdaVersionfmJvaMqawkYoHKGOW8NVq6tv9A52cWCqz3oEajWGdg4"
       },
       "Export": {
         "Name": "sls-team-4-etl-dev-TeamDash4DashetlLambdaFunctionQualifiedArn"

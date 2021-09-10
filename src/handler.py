@@ -11,17 +11,19 @@ def start(event, context):
     data = s3_object['Body'].read().decode('utf-8')
     data_as_list = data.splitlines()
     
-    with open("/tmp/temp.csv", 'w') as etl_file:
-        etl_writer = csv.writer(etl_file)
-        
-        for line in data_as_list:
-            etl_writer.writerow(line)
-        
-        run_etl.etl("/tmp/temp.csv")
-        
-        return 'finito'
-    
+    print(len(data_as_list), 'data as list len')
+    with open('/tmp/temp.csv', 'wb') as f:
+        s3_client.download_fileobj(bucket, key, f)
 
+        run_etl.etl('/tmp/temp.csv')
+        return 'etl finished'
+    
+    
+# with open("/tmp/temp.csv", 'w') as etl_file:
+    #     etl_writer = csv.writer(etl_file)
+        
+    #     for line in data_as_list:
+    #         etl_writer.writerow(line)
 
 
 
@@ -31,3 +33,4 @@ def start(event, context):
     # for file in our_buck.objects.all():
     #     bucket_contents.append(file.key)
     # return bucket_contents
+

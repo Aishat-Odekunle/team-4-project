@@ -1,6 +1,6 @@
 import datetime
-# import pprint
-
+import pprint
+import Extract_team_4_project as extract
 clean_data = []
 
 def format_date(var):
@@ -22,36 +22,44 @@ def is_number(string):
         return True
     except ValueError:
         return False
-    
+
 def transform_data(list_to_read_from, list_to_append_to):
+    print('transform function start')
     for row in list_to_read_from:
+        if len(row) != 7:
+            continue
         row.pop(2)
         row.pop(-1)
+        
         order = row[2].split(',')
         
         products = []
         prices = []
         
+        # remove whitespace in orders from comma before splitting on comma
         for i in order:
             if i == '':
                 order.remove(i)
         row[2] = ','.join(order)
-        
+       
+        # putting all prices in each order, into a list
         for i in row[2].split(','):
-            if is_number(i):
-                prices.append(i)
-        
-        order_list = row[2].split(',')
-        for i in range(len(order_list)):
-            if is_number(order_list[i]):
-                order_list[i] = ':'
-        order_list = ' '.join(order_list)
-        order_list = order_list.split(':')
-        
-        for i in range(len(order_list)):
-            if order_list[i] != '':
-                products.append(order_list[i])
-                
+            for j in i.split('-'):
+                if is_number(j):
+                    prices.append(j.strip())
+            
+        # removing numbers and other symbols from row[2] in order to get each product
+        for i in row[2]:
+            if is_number(i) or i in ['-', '.']:
+                row[2] = row[2].replace(i, '')
+         
+            
+        # putting products in products list
+        for i in row[2].split(','):
+            if i != '':
+                products.append(i.strip())
+       
+        # creating basket from products and prices lists        
         basket = [{"name": f.strip(),
                    "price": float(b)}
                   for f, b in 
@@ -65,31 +73,33 @@ def transform_data(list_to_read_from, list_to_append_to):
                 
         for d in new_basket:
             d["quantity"] = basket.count(d)
+            
         
         the_date = format_date(row[0])
-        
+
         dt = ''
         
         date_transform = False
         
         try:
-            dt = datetime.datetime.strptime(the_date, "%d-%m-%Y %H-%M-%S")
+            dt = datetime.datetime.strptime(the_date, "%d-%m-%Y %H-%M")
+            date_transform = True
+            
+        except:
+            pass
+        
+        try:
+            dt = datetime.datetime.strptime(the_date, "%Y-%m-%d %H-%M")
             date_transform = True
         except:
             pass
         
         try:
-            dt = datetime.datetime.strptime(the_date, "%Y-%m-%d %H-%M-%S")
+            dt = datetime.datetime.strptime(the_date, "%m-%Y-%d %H-%M")
             date_transform = True
         except:
             pass
         
-        try:
-            dt = datetime.datetime.strptime(the_date, "%m-%Y-%d %H-%M-%S")
-            date_transform = True
-        except:
-            pass
-
         if date_transform == True:
             day = datetime.datetime.strftime(dt, "%Y-%m-%d")
             time = datetime.datetime.strftime(dt, "%H:%M:%S")
@@ -98,8 +108,8 @@ def transform_data(list_to_read_from, list_to_append_to):
             transformed["time"] = time
             transformed["branch"] = row[1]
             transformed["basket"] = new_basket
-            transformed["payment type"] = row[3]
-            transformed["total"] = float(row[4])
+            transformed["payment type"] = row[4]
+            transformed["total"] = float(row[3])
                 
             list_to_append_to.append(transformed)
     
