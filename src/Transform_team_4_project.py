@@ -1,7 +1,4 @@
 import datetime
-import pprint
-import Extract_team_4_project as extract
-clean_data = []
 
 def format_date(var):
     ls = ['/', '.']
@@ -26,10 +23,9 @@ def is_number(string):
 def transform_data(list_to_read_from, list_to_append_to):
     print('transform function start')
     for row in list_to_read_from:
-        if len(row) != 7:
-            continue
+        if len(row) == 7:
+            row.pop(-1)
         row.pop(2)
-        row.pop(-1)
         
         order = row[2].split(',')
         
@@ -114,8 +110,5 @@ def transform_data(list_to_read_from, list_to_append_to):
                 
             list_to_append_to.append(transformed)
     
-    
-# transform_data(extract.customers_list, clean_data)
 
-# pprint.pprint(clean_data[0])
 

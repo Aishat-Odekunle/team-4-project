@@ -18,19 +18,5 @@ def start(event, context):
         run_etl.etl('/tmp/temp.csv')
         return 'etl finished'
     
-    
-# with open("/tmp/temp.csv", 'w') as etl_file:
-    #     etl_writer = csv.writer(etl_file)
-        
-    #     for line in data_as_list:
-    #         etl_writer.writerow(line)
 
-
-
-    # s = boto3.resource('s3')
-    # our_buck = s.Bucket(bucket)
-    # bucket_contents = []
-    # for file in our_buck.objects.all():
-    #     bucket_contents.append(file.key)
-    # return bucket_contents
 

@@ -44,7 +44,7 @@ def create_table_purchase_table(con):
     cur = con.cursor()
     cur.execute('''create table if not exists purchase_table 
                 (purchase_id INT IDENTITY(1,1), purchase_date DATE NOT NULL,
-                purchase_time TIME UNIQUE NOT NULL,
+                purchase_time TIME NOT NULL,
                 purchase_total FLOAT NOT NULL,
                 branch_id INTEGER NOT NULL,
                 payment_type VARCHAR(50) NOT NULL,
@@ -59,7 +59,7 @@ def create_table_branch_table(con):
     cur = con.cursor()
     cur.execute('''create table if not exists branch_table 
                 (branch_id  INT IDENTITY(1,1),
-                branch_location TEXT UNIQUE NOT NULL,
+                branch_location VARCHAR(100) NOT NULL,
                 PRIMARY KEY(branch_id))''')
     con.commit()
     cur.close()
@@ -70,7 +70,7 @@ def create_table_products_table(con):
     cur = con.cursor()
     cur.execute('''create table if not exists products_table 
                 (product_id  INT IDENTITY(1,1), 
-                product_name VARCHAR (100) UNIQUE NOT NULL, 
+                product_name VARCHAR (100) NOT NULL, 
                 product_price FLOAT NOT NULL, 
                 PRIMARY KEY(product_id))''')
     con.commit()
@@ -84,7 +84,8 @@ def create_table_purchase_product_table(con):
                 (purchase_date DATE NOT NULL, 
                 purchase_time TIME NOT NULL, 
                 product_id INTEGER NOT NULL, 
-                amount INTEGER, 
+                amount INTEGER,
+                branch_id INTEGER, 
                 PRIMARY KEY (purchase_date, purchase_time, product_id), 
                 FOREIGN KEY (product_id) REFERENCES products_table(product_id))''')
     con.commit()
@@ -95,7 +96,7 @@ def insert_into_branch_table(con, value):
     
     command = '''INSERT INTO branch_table
                 (branch_location) 
-                VALUES (%s) on conflict (branch_location) do nothing'''
+                VALUES (%s)'''
     
     val = (value,)
     cur = con.cursor()
@@ -108,7 +109,7 @@ def insert_into_products_table(con, name, price):
     
     command = '''INSERT INTO products_table 
                 (product_name, product_price) 
-                VALUES (%s, %s) on conflict (product_name) do nothing'''
+                VALUES (%s, %s)'''
     
     val = (name, price,)
     cur = con.cursor()
@@ -121,7 +122,7 @@ def insert_into_purchase_table(con, date, time, total, branch, payment):
     
     command = '''INSERT INTO purchase_table 
                 (purchase_date, purchase_time, purchase_total, branch_id, payment_type) 
-                VALUES (%s, %s, %s, %s, %s) on conflict (purchase_date, purchase_time, branch_id) do nothing'''
+                VALUES (%s, %s, %s, %s, %s)'''
     
     val = (date, time, total, branch, payment,)
     cur = con.cursor()
@@ -130,13 +131,13 @@ def insert_into_purchase_table(con, date, time, total, branch, payment):
     cur.close()
     
     
-def insert_into_purchase_product_table(con, date, time, product_id, amount):
+def insert_into_purchase_product_table(con, date, time, product_id, amount, branch_id):
     
     command = '''INSERT INTO purchase_product_table 
-                (purchase_date, purchase_time, product_id, amount) 
-                VALUES (%s, %s, %s, %s) on conflict (purchase_date, purchase_time, product_id) do nothing'''
+                (purchase_date, purchase_time, product_id, amount, branch_id) 
+                VALUES (%s, %s, %s, %s, %s)'''
     
-    val = (date, time, product_id, amount,)
+    val = (date, time, product_id, amount, branch_id)
     cur = con.cursor()
     cur.execute(command, val)
     con.commit()
@@ -162,3 +163,31 @@ def get_product_id(con, product):
     record = cur.fetchall()
     cur.close()
     return record[0][0]
+
+def get_branch_info(con, branch, fn):
+    command = f'SELECT branch_location from branch_table'
+    cur = con.cursor()
+    cur.execute(command)
+    record = cur.fetchall()
+    cur.close()
+    record_list = [''.join(list(i)) for i in record]
+    
+    if branch not in record_list:
+        fn()
+    elif branch not in record_list:
+        pass
+    
+def get_products_info(con, product, fn):
+    command = f'SELECT product_name from products_table'
+    cur = con.cursor()
+    cur.execute(command)
+    record = cur.fetchall()
+    cur.close()
+    record_list = [''.join(list(i)) for i in record]
+    
+    # print(len(record_list))
+    
+    if product not in record_list:
+        fn()
+    elif product in record_list :
+        pass
