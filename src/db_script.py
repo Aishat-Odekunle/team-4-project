@@ -191,3 +191,5 @@ def get_products_info(con, product, fn):
         fn()
     elif product in record_list :
         pass
+
+print('poop')

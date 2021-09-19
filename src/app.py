@@ -7,17 +7,9 @@ def etl(filename):
     customers_list = []
     extract.extract_csv_info(filename, customers_list)
     
-    print(len(customers_list), 'extracted data length')
-    
     clean_data = []
     transform.transform_data(customers_list, clean_data)
-    
-    print(len(clean_data), 'transformed data length')
-    # try:    
-    #     database.create_database()
-    # except:
-    #     pass
-    
+
     connection = database.create_connection()
 
     database.create_table_branch_table(connection)
@@ -45,4 +37,3 @@ def etl(filename):
     
     connection.close()
     print('etl function fin')
-        

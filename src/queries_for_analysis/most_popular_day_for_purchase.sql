@@ -4,7 +4,7 @@ select
 from
     purchase_table
 where
-    purchase_date between '2021-09-01' and '2021-09-08'
+    purchase_date between '2021-09-6' and '2021-09-19'
 group by
     day
 order by
