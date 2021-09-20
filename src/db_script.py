@@ -26,18 +26,18 @@ def create_connection():
     
     return conn
 
-# def create_database():
+def create_database():
     
-#     con = psycopg2.connect(
-#     host="localhost",
-#     user="root",
-#     password="password" )
+    con = psycopg2.connect(
+    host="localhost",
+    user="root",
+    password="password" )
 
-#     cur = con.cursor()
-#     con.autocommit = True
-#     cur.execute('create database infinity_cafes')
-#     cur.close()
-#     con.close()
+    cur = con.cursor()
+    con.autocommit = True
+    cur.execute('create database infinity_cafes')
+    cur.close()
+    con.close()
 
 def create_table_purchase_table(con):
     
@@ -191,5 +191,3 @@ def get_products_info(con, product, fn):
         fn()
     elif product in record_list :
         pass
-
-print('poop')

@@ -2,7 +2,6 @@ import src.Extract_team_4_project as extract
 import src.Transform_team_4_project as transform
 import src.db_script as database
 
-
 def etl(filename):
     customers_list = []
     extract.extract_csv_info(filename, customers_list)
@@ -36,4 +35,4 @@ def etl(filename):
             database.insert_into_purchase_product_table(connection, row["date"], row["time"], database.get_product_id(connection, item["name"]), item["quantity"],  database.get_location_id(connection, row["branch"]))
     
     connection.close()
-    print('etl function fin')
+    return 'etl function fin'
